@@ -1,0 +1,31 @@
+version: '3'
+volumes:
+  node_modules:
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # command: node bin/www
+    ports:
+     - "6500:6500"
+    tty: true
+    volumes:
+     - .:/app
+     - node_modules:/app/node_modules
+    networks:
+     - net1
+    environment:
+     - PORT=6500
+     - NODE_ENV=docker_dev
+    links:
+     - redis
+    depends_on:
+     - redis
+  redis:
+    image: redis
+    networks:
+     - net1
+networks:
+  net1:
+    driver: bridge

@@ -9,7 +9,8 @@ WORKDIR /tmp
 RUN npm install \
     && mv /tmp/node_modules /app/ \
     && npm cache clean --force
-
+ENV PORT=6000
+EXPOSE 6000
 # Set the working directory to /app
 WORKDIR /app
 
